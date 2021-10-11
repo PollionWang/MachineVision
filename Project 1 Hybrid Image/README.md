@@ -100,10 +100,39 @@
   > The original function of hybrid (Don't append any other method)
   ```ruby
   def hybrid(img1, img2, n, sigma, alpha):
+      #img1: left image(low pass frequency), img2: right image(high pass frequency), alpha: Mix-in ratio
       low_pass_img = low_pass(img1, n, sigma)
       high_pass_img = high_pass(img2, n, sigma)
       hybrid_img = alpha * low_pass_img + (1 - alpha) * high_pass_img
       hybrid_img = hybrid_img.astype(np.uint8)
       return hybrid_img
   ```
-  
+  > Use the global equalizehist
+  ```ruby
+  def hybrid(img1, img2, n, sigma, alpha):
+      #img1: left image(low pass frequency), img2: right image(high pass frequency), alpha: Mix-in ratio
+      low_pass_img = low_pass(img1, n, sigma)
+      high_pass_img = high_pass(img2, n, sigma)
+      hybrid_img = alpha * low_pass_img + (1 - alpha) * high_pass_img
+      hybrid_img = hybrid_img.astype(np.uint8)
+      b, g, r = cv2.split(hybrid_img)
+      global_hist_b = cv2.equalizeHist(b)
+      global_hist_g = cv2.equalizeHist(g)
+      global_hist_r = cv2.equalizeHist(r)
+      return cv2.merge([global_hist_b, global_hist_g, global_hist_r])
+  ```
+  > Use the local equlizehist
+  ```ruby
+  def hybrid(img1, img2, n, sigma, alpha):
+      #img1: left image(low pass frequency), img2: right image(high pass frequency), alpha: Mix-in ratio
+      low_pass_img = low_pass(img1, n, sigma)
+      high_pass_img = high_pass(img2, n, sigma)
+      hybrid_img = alpha * low_pass_img + (1 - alpha) * high_pass_img
+      hybrid_img = hybrid_img.astype(np.uint8)
+      b, g, r = cv2.split(hybrid_img)
+      clahe = cv2.createCLAHE(1.5, (1, 1))
+      local_hist_b = clahe.apply(b)
+      local_hist_g = clahe.apply(g)
+      local_hist_r = clahe.apply(r)
+      return cv2.merge([local_hist_b, local_hist_g, local_hist_r])
+  ```
