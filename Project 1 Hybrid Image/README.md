@@ -150,7 +150,17 @@ cv2.waitKey(0)
 cv2.destroyAllWindows()
 ```
 > No operation (Original hybrid image)
+> 
+![Original Image](https://user-images.githubusercontent.com/55045841/136725479-939c9c29-dbba-4895-8298-842f9b6cc5a8.png)
 
 > Global equalizehist
+> 
+![Global Hist Image](https://user-images.githubusercontent.com/55045841/136725501-d3890d2a-73f5-4b64-8cc8-dceac3f2537b.png)
 
 > Local equalizehise
+> 
+![Local Hist Image](https://user-images.githubusercontent.com/55045841/136725509-95ef21c8-389b-4dc1-95b9-bf42ecd0219a.png)
+
+> Compare the above three images, we can find that the local equalizehist is the best! Original one and the global equlizehist one are extreme in the contrast ratio.
+
+> So, the final code choose the local equalizehist method.
