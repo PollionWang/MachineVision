@@ -136,3 +136,21 @@
       local_hist_r = clahe.apply(r)
       return cv2.merge([local_hist_b, local_hist_g, local_hist_r])
   ```
+
+## 3. Test
+```ruby
+hybrid_ans = hybrid('left.jpg', 'right.jpg', 15, 10, 0.6)
+cv2.imwrite('hybrid.jpg', hybrid_ans)
+left_img = cv2.imread('left.jpg')
+right_img = cv2.imread('right.jpg')
+cv2.imshow('Left Image', left_img)
+cv2.imshow('Right Image', right_img)
+cv2.imshow('Hybrid Image', hybrid_ans)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+> No operation (Original hybrid image)
+
+> Global equalizehist
+
+> Local equalizehise
